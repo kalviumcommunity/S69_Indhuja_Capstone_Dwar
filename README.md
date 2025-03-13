@@ -1,6 +1,5 @@
 
 # Capstone Project Overview: Empowering Change – Bridging Donors with Causes
-
 ---
 
 ## Project Idea Brief
