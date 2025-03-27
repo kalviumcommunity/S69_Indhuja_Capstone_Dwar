@@ -4,15 +4,21 @@ const donorSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
-    required: true,
+    required: [true, 'User reference is required'],
     unique: true
   },
   name: {
     type: String,
-    required: [true, 'Name is required']
+    required: [true, 'Full name is required']
   },
-  phone: String,
-  location: String
-});
+  phone: {
+    type: String,
+    required: [true, 'Phone number is required']
+  },
+  location: {
+    type: String,
+    required: [true, 'Location is required']
+  }
+}, { timestamps: true });
 
 module.exports = mongoose.model('Donor', donorSchema);
