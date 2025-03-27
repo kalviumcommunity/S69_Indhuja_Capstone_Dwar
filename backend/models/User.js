@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     required: [true, 'Email is required'],
     unique: true,
     lowercase: true,
-    validate: [validator.isEmail, 'Invalid email']
+    validate: [validator.isEmail, 'Invalid email format']
   },
   password: {
     type: String,
@@ -19,19 +19,29 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     enum: ['donor', 'organization'],
-    required: true
+    required: true,
+    default: 'donor'
   },
   active: {
     type: Boolean,
     default: true
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now
   }
 });
 
-// Password hashing middleware
+// Password hashing
 userSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await bcrypt.hash(this.password, 12);
   next();
 });
+
+// Password verification method
+userSchema.methods.correctPassword = async function(candidatePassword) {
+  return await bcrypt.compare(candidatePassword, this.password);
+};
 
 module.exports = mongoose.model('User', userSchema);
