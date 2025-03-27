@@ -8,4 +8,4 @@ app.use(express.json());
 app.use('/api/profile', require('./routes/profileRoutes'));
 
 const PORT = 5000;
-app.listen(PORT, () => console.log(`GET API server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`GET API server running on port: http://localhost:${PORT}`));
