@@ -56,7 +56,9 @@ const OrgSignup = ({ onClose }) => {
       swiftCode: ""
     },
     
+
     // Media
+    
     logo: null,
     coverPhoto: null,
     registrationProof: null,
