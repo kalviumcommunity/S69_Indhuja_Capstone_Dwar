@@ -11,10 +11,14 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 
+// Serve static files from uploads directory
+app.use('/uploads', express.static('uploads'));
+
 // Routes
 app.use('/api/profiles', require('./routes/profileRoutes'));
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/testimonials', require('./routes/testimonialRoutes'));
+app.use('/api/organizations', require('./routes/organizationRoutes'));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
@@ -31,6 +35,14 @@ app.listen(PORT, () => {
   console.log('\x1b[36m%s\x1b[0m', 'GET  /api/testimonials/seed'.padEnd(30) + ' - Seed initial testimonials');
   console.log('\x1b[36m%s\x1b[0m', 'GET  /api/testimonials/:id'.padEnd(30) + ' - Get testimonial by ID');
   console.log('\x1b[36m%s\x1b[0m', 'POST /api/testimonials'.padEnd(30) + ' - Create new testimonial (protected)');
+  
+  // Organization endpoints
+  console.log('\x1b[36m%s\x1b[0m', 'GET  /api/organizations'.padEnd(30) + ' - Get all organizations');
+  console.log('\x1b[36m%s\x1b[0m', 'GET  /api/organizations/:id'.padEnd(30) + ' - Get organization by ID');
+  console.log('\x1b[36m%s\x1b[0m', 'POST /api/organizations/register'.padEnd(30) + ' - Register new organization');
+  console.log('\x1b[36m%s\x1b[0m', 'GET  /api/organizations/profile'.padEnd(30) + ' - Get organization profile (protected)');
+  console.log('\x1b[36m%s\x1b[0m', 'PATCH /api/organizations/profile'.padEnd(30) + ' - Update organization profile (protected)');
+  console.log('\x1b[36m%s\x1b[0m', 'DELETE /api/organizations/gallery/:imageIndex'.padEnd(30) + ' - Remove gallery image (protected)');
   
   // Debug endpoints (optional)
   console.log('\x1b[33m%s\x1b[0m', 'GET  /api/auth/users'.padEnd(30) + ' - [DEBUG] Get all users');
